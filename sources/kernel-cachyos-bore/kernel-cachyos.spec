@@ -61,7 +61,7 @@
 %define _kernel_dir /lib/modules/%{_kver}
 %define _devel_dir %{_usrsrc}/kernels/%{_kver}
 
-%define _patch_src https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}
+%define _patch_src https://raw.githubusercontent.com/flukejones/cachyos-kernel-patches/master/%{_basekver}
 
 %if %{_build_lto}
     # Define build environment variables to build the kernel with clang
@@ -70,19 +70,19 @@
 
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/linux-%{_tarkver} SYSOUT=%{_builddir}/linux-%{_tarkver}
 
-Name:           kernel-cachyos%{?_lto_args:-lto}
+Name:           kernel-rog-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
 Version:        %{_basekver}.%{_stablekver}
-Release:        cachyos1%{?_lto_args:.lto}%{?dist}
+Release:        rog_cachyos1%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
 Requires:       kernel-core-uname-r = %{_kver}
 Requires:       kernel-modules-uname-r = %{_kver}
 Requires:       kernel-modules-core-uname-r = %{_kver}
-Provides:       kernel-cachyos%{?_lto_args:-lto} > 6.12.9-cb1.0%{?_lto_args:.lto}%{?dist}
+Provides:       kernel-rog-cachyos%{?_lto_args:-lto} > 6.12.9-cb1.0%{?_lto_args:.lto}%{?dist}
 Provides:       installonlypkg(kernel)
-Obsoletes:      kernel-cachyos%{?_lto_args:-lto} <= 6.12.9-cb1.0.lto%{?_lto_args:.lto}%{?dist}
+Obsoletes:      kernel-rog-cachyos%{?_lto_args:-lto} <= 6.12.9-cb1.0.lto%{?_lto_args:.lto}%{?dist}
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -115,7 +115,7 @@ BuildRequires:  gcc-c++
 
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
 Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
-Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
+Source1:        https://raw.githubusercontent.com/flukejones/cachyos-linux-kermit/master/linux-cachyos/config
 
 %if %{_build_minimal}
 # The default modprobed.db provided is used for linux-cachyos CI.
@@ -128,11 +128,21 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
-Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+##__Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
+##__Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+Patch0: %{_patch_src}/0001-amd-pstate.patch
+Patch1: %{_patch_src}/0002-amd-tlb-broadcast.patch
+Patch2: %{_patch_src}/0003-asus.patch
+Patch3: %{_patch_src}/0004-bbr3.patch
+Patch4: %{_patch_src}/0005-cachy.patch
+Patch5: %{_patch_src}/0006-crypto.patch
+Patch6: %{_patch_src}/0007-fixes.patch
+Patch7: %{_patch_src}/0008-t2.patch
+Patch8: %{_patch_src}/0009-zstd.patch
+Patch9: %{_patch_src}/0010-zotac-zone.patch
 
 %if %{_build_lto}
-Patch2:         %{_patch_src}/misc/dkms-clang.patch
+Patch12:         %{_patch_src}/misc/dkms-clang.patch
 %endif
 
 %if %{_build_nv}
