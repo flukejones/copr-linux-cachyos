@@ -126,8 +126,19 @@ Source2:        https://raw.githubusercontent.com/Frogging-Family/linux-tkg/mast
 Source10:       https://github.com/NVIDIA/open-gpu-kernel-modules/archive/%{_nv_ver}/%{_nv_pkg}.tar.gz
 %endif
 
-Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
-Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+##__Patch0:         %{_patch_src}/all/0001-cachyos-base-all.patch
+##__Patch1:         %{_patch_src}/sched/0001-bore-cachy.patch
+Patch0: %{_patch_src}/0001-amd-pstate.patch
+Patch1: %{_patch_src}/0002-amd-tlb-broadcast.patch
+Patch2: %{_patch_src}/0003-asus.patch
+Patch3: %{_patch_src}/0004-bbr3.patch
+Patch4: %{_patch_src}/0005-cachy.patch
+Patch5: %{_patch_src}/0006-crypto.patch
+Patch6: %{_patch_src}/0007-fixes.patch
+Patch7: %{_patch_src}/0008-t2.patch
+Patch8: %{_patch_src}/0009-zstd.patch
+Patch9: %{_patch_src}/0010-zotac-zone.patch
+Patch10: %{_patch_src}/0001-PCI-VGA-Look-at-all-PCI-display-devices-in-VGA-arbit.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
