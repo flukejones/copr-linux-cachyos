@@ -32,7 +32,7 @@
 # Builds nvidia-open kernel modules with
 # the kernel
 %define _nv_pkg open-gpu-kernel-modules-%{_nv_ver}
-%if 0%{?fedora} >= 43
+%if 0%{?fedora} >= 42
     %define _build_nv 1
     %define _nv_ver 575.51.02
 %else
@@ -59,7 +59,7 @@
 %define _kernel_dir /lib/modules/%{_kver}
 %define _devel_dir %{_usrsrc}/kernels/%{_kver}
 
-%define _patch_src https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}
+%define _patch_src https://raw.githubusercontent.com/flukejones/cachyos-kernel-patches/master/%{_basekver}
 
 %if %{_build_lto}
     # Define build environment variables to build the kernel with clang
@@ -113,7 +113,7 @@ BuildRequires:  gcc-c++
 
 # Indexes 0-9 are reserved for the kernel. 10-19 will be reserved for NVIDIA
 Source0:        https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-%{_tarkver}.tar.xz
-Source1:        https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/config
+Source1:        https://raw.githubusercontent.com/flukejones/linux-cachyos/master/linux-cachyos/config
 
 %if %{_build_minimal}
 # The default modprobed.db provided is used for linux-cachyos CI.
@@ -138,7 +138,6 @@ Patch6: %{_patch_src}/0007-fixes.patch
 Patch7: %{_patch_src}/0008-t2.patch
 Patch8: %{_patch_src}/0009-zstd.patch
 Patch9: %{_patch_src}/0010-zotac-zone.patch
-Patch10: %{_patch_src}/0001-PCI-VGA-Look-at-all-PCI-display-devices-in-VGA-arbit.patch
 
 %if %{_build_lto}
 Patch2:         %{_patch_src}/misc/dkms-clang.patch
@@ -203,7 +202,7 @@ Patch21:        https://raw.githubusercontent.com/CachyOS/copr-linux-cachyos/ref
 cd %{_builddir}/%{_nv_pkg}/kernel-open
 %patch -P 10 -p1
 cd ..
-%autopatch -p1 -v -m 11 -M 19
+%autopatch -p1 -v -m 22 -M 19
 %endif
 
 %build
