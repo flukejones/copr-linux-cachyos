@@ -40,6 +40,7 @@
     %define _nv_ver 570.144
     %define _nv_old 1
 %endif
+%define _build_nv 0
 
 # Define the tickrate used by the kernel
 # Valid values: 100, 250, 300, 500, 600, 750 and 1000
@@ -68,17 +69,17 @@
 
 %define _module_args KERNEL_UNAME=%{_kver} IGNORE_PREEMPT_RT_PRESENCE=1 SYSSRC=%{_builddir}/linux-%{_tarkver} SYSOUT=%{_builddir}/linux-%{_tarkver}
 
-Name:           kernel-cachyos%{?_lto_args:-lto}
+Name:           kernel-rog-cachyos%{?_lto_args:-lto}
 Summary:        Linux BORE %{?_lto_args:+ LTO }Cachy Sauce Kernel by CachyOS with other patches and improvements.
 Version:        %{_basekver}.%{_stablekver}
-Release:        cachyos1%{?_lto_args:.lto}%{?dist}
+Release:        rog_cachyos1%{?_lto_args:.lto}%{?dist}
 License:        GPL-2.0-only
 URL:            https://cachyos.org
 
-Requires:       kernel-core-uname-r = %{_kver}
-Requires:       kernel-modules-uname-r = %{_kver}
-Requires:       kernel-modules-core-uname-r = %{_kver}
-Provides:       kernel-cachyos%{?_lto_args:-lto} > 6.12.9-cb1.0%{?_lto_args:.lto}%{?dist}
+Requires:       kernel-rog-core-uname-r = %{_kver}
+Requires:       kernel-rog-modules-uname-r = %{_kver}
+Requires:       kernel-rog-modules-core-uname-r = %{_kver}
+Provides:       kernel-rog-cachyos%{?_lto_args:-lto} > 6.12.9-cb1.0%{?_lto_args:.lto}%{?dist}
 Provides:       installonlypkg(kernel)
 Obsoletes:      kernel-cachyos%{?_lto_args:-lto} <= 6.12.9-cb1.0.lto%{?_lto_args:.lto}%{?dist}
 
@@ -338,10 +339,10 @@ AutoReq:        no
 Conflicts:      xfsprogs < 4.3.0-1
 Conflicts:      xorg-x11-drv-vmmouse < 13.0.99
 Provides:       kernel = %{_rpmver}
-Provides:       kernel-core-uname-r = %{_kver}
-Provides:       kernel-uname-r = %{_kver}
+Provides:       kernel-rog-core-uname-r = %{_kver}
+Provides:       kernel-rog-uname-r = %{_kver}
 Provides:       installonlypkg(kernel)
-Requires:       kernel-modules-uname-r = %{_kver}
+Requires:       kernel-rog-modules-uname-r = %{_kver}
 Requires(pre):  /usr/bin/kernel-install
 Requires(pre):  coreutils
 Requires(pre):  dracut >= 027
@@ -391,12 +392,12 @@ Recommends:     linux-firmware
 
 %package modules
 Summary:        Kernel modules package for %{name}
-Provides:       kernel-modules = %{_rpmver}
-Provides:       kernel-modules-core = %{_rpmver}
-Provides:       kernel-modules-extra = %{_rpmver}
-Provides:       kernel-modules-uname-r = %{_kver}
-Provides:       kernel-modules-core-uname-r = %{_kver}
-Provides:       kernel-modules-extra-uname-r = %{_kver}
+Provides:       kernel-rog-modules = %{_rpmver}
+Provides:       kernel-rog-modules-core = %{_rpmver}
+Provides:       kernel-rog-modules-extra = %{_rpmver}
+Provides:       kernel-rog-modules-uname-r = %{_kver}
+Provides:       kernel-rog-modules-core-uname-r = %{_kver}
+Provides:       kernel-rog-modules-extra-uname-r = %{_kver}
 Provides:       v4l2loopback-kmod = 0.14.0
 Provides:       installonlypkg(kernel-module)
 Requires:       kernel-uname-r = %{_kver}
@@ -429,8 +430,8 @@ Requires:       kernel-uname-r = %{_kver}
 
 %package devel
 Summary:        Development package for building kernel modules to match %{name}
-Provides:       kernel-devel = %{_rpmver}
-Provides:       kernel-devel-uname-r = %{_kver}
+Provides:       kernel-rog-devel = %{_rpmver}
+Provides:       kernel-rog-devel-uname-r = %{_kver}
 Provides:       installonlypkg(kernel)
 AutoReqProv:    no
 Requires(pre):  findutils
@@ -470,7 +471,7 @@ Requires:       gcc
 
 %package devel-matched
 Summary:        Meta package to install matching core and devel packages for %{name}
-Provides:       kernel-devel-matched = %{_rpmver}
+Provides:       kernel-rog-devel-matched = %{_rpmver}
 Requires:       %{name}-core = %{_rpmver}
 Requires:       %{name}-devel = %{_rpmver}
 
